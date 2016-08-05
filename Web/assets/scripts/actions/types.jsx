@@ -1,0 +1,16 @@
+export const CHANGE_AUTH='change_auth';
+export const USER_ADDED='user_added';
+export const AUTH_USER = 'auth_user';
+export const UNAUTH_USER ='unauth_user';
+export const AUTH_ERROR ='auth_error';
+export const FETCH_DEVICE= 'fetch_device';
+export const DEVICES_SELECTED= 'devices_selected';
+export const UNSELECT_DEVICE='unselect_device';
+export const CONFIRM_DEVICE='confirm_device';
+export const UNCONFIRM_DEVICE='unconfirm_device';
+export const READ_DEVICE='read_device';
+export const SEND_ACK='send_ack';
+export const FLUSH_READ_DATA='flush_read_data';
+export const CONFIG_ERROR='config_error';
+export const CLEAR='clear';
+export const SAVE_CONFIG='save_config';

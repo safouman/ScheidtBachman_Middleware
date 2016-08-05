@@ -1,0 +1,11 @@
+[
+    {
+        "Baudrate": "", 
+        "IO": "input", 
+        "Name": "Prolific_Technology_Inc._USB-Serial_Controller", 
+        "Path": "/dev/ttyUSB0", 
+        "Process   ": "Magnetic Ticket",
+        "ProductID": "2303", 
+        "VendorID": "067b"
+    }
+]

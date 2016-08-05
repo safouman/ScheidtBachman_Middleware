@@ -1,0 +1,46 @@
+2016-07-23 12:02:26,502 INFO:Idtech Thread Idtech is starting... Module: Device_thread Line:181 Function: run
+2016-07-23 12:02:26,504 DEBUG:Idtech initializing device /dev/ttyUSB0 Module: Device_thread Line:182 Function: run
+2016-07-23 12:02:26,504 INFO:Idtech initializing serial device Idtech ... Module: Device_thread Line:158 Function: initialize_device
+2016-07-23 12:02:26,505 INFO:Idtech source port set to /dev/ttyUSB0 Module: Device_thread Line:160 Function: initialize_device
+2016-07-23 12:02:26,505 INFO:Idtech waiting for data... Module: Device_thread Line:38 Function: read_data_Serial
+2016-07-23 12:04:39,235 INFO:Idtech Thread Idtech is starting... Module: Device_thread Line:183 Function: run
+2016-07-23 12:04:39,235 DEBUG:Idtech initializing device /dev/ttyUSB0 Module: Device_thread Line:184 Function: run
+2016-07-23 12:04:39,236 INFO:Idtech initializing serial device Idtech ... Module: Device_thread Line:160 Function: initialize_device
+2016-07-23 12:04:39,321 INFO:Idtech source port set to /dev/ttyUSB0 Module: Device_thread Line:162 Function: initialize_device
+2016-07-23 12:04:39,321 INFO:Idtech waiting for data... Module: Device_thread Line:38 Function: read_data_Serial
+2016-07-23 12:04:51,883 INFO:Idtech Thread Idtech is starting... Module: Device_thread Line:183 Function: run
+2016-07-23 12:04:51,884 DEBUG:Idtech initializing device /dev/ttyUSB0 Module: Device_thread Line:184 Function: run
+2016-07-23 12:04:51,884 INFO:Idtech initializing serial device Idtech ... Module: Device_thread Line:160 Function: initialize_device
+2016-07-23 12:04:51,885 INFO:Idtech source port set to /dev/ttyUSB0 Module: Device_thread Line:162 Function: initialize_device
+2016-07-23 12:04:51,885 INFO:Idtech waiting for data... Module: Device_thread Line:38 Function: read_data_Serial
+2016-07-23 12:05:33,309 INFO:Idtech Thread Idtech is starting... Module: Device_thread Line:183 Function: run
+2016-07-23 12:05:33,310 DEBUG:Idtech initializing device /dev/ttyUSB0 Module: Device_thread Line:184 Function: run
+2016-07-23 12:05:33,310 INFO:Idtech initializing serial device Idtech ... Module: Device_thread Line:160 Function: initialize_device
+2016-07-23 12:05:33,393 INFO:Idtech source port set to /dev/ttyUSB0 Module: Device_thread Line:162 Function: initialize_device
+2016-07-23 12:05:33,393 INFO:Idtech waiting for data... Module: Device_thread Line:38 Function: read_data_Serial
+2016-07-23 12:05:36,126 ERROR:Idtech Error reading data device reports readiness to read but returned no data (device disconnected or multiple access on port?) Module: Device_thread Line:47 Function: read_data_Serial
+2016-07-23 12:05:36,126 ERROR:Idtech Error device reports readiness to read but returned no data (device disconnected or multiple access on port?) Module: Device_thread Line:219 Function: run
+2016-07-23 12:06:18,583 INFO:Idtech Thread Idtech is starting... Module: Device_thread Line:183 Function: run
+2016-07-23 12:06:18,583 DEBUG:Idtech initializing device /dev/ttyUSB0 Module: Device_thread Line:184 Function: run
+2016-07-23 12:06:18,583 INFO:Idtech initializing serial device Idtech ... Module: Device_thread Line:160 Function: initialize_device
+2016-07-23 12:06:18,665 INFO:Idtech source port set to /dev/ttyUSB0 Module: Device_thread Line:162 Function: initialize_device
+2016-07-23 12:06:18,665 INFO:Idtech waiting for data... Module: Device_thread Line:38 Function: read_data_Serial
+2016-07-23 12:07:00,940 INFO:Idtech Thread Idtech is starting... Module: Device_thread Line:184 Function: run
+2016-07-23 12:07:00,941 DEBUG:Idtech initializing device /dev/ttyUSB0 Module: Device_thread Line:185 Function: run
+2016-07-23 12:07:00,941 INFO:Idtech initializing serial device Idtech ... Module: Device_thread Line:161 Function: initialize_device
+2016-07-23 12:07:01,024 INFO:Idtech source port set to /dev/ttyUSB0 Module: Device_thread Line:163 Function: initialize_device
+2016-07-23 12:07:01,025 INFO:Idtech waiting for data... Module: Device_thread Line:38 Function: read_data_Serial
+2016-07-23 12:07:02,830 ERROR:Idtech Error reading data device reports readiness to read but returned no data (device disconnected or multiple access on port?) Module: Device_thread Line:47 Function: read_data_Serial
+2016-07-23 12:07:02,830 ERROR:Idtech Error device reports readiness to read but returned no data (device disconnected or multiple access on port?) Module: Device_thread Line:220 Function: run
+2016-07-23 12:07:17,201 INFO:Idtech Thread Idtech is starting... Module: Device_thread Line:184 Function: run
+2016-07-23 12:07:17,202 DEBUG:Idtech initializing device /dev/ttyUSB0 Module: Device_thread Line:185 Function: run
+2016-07-23 12:07:17,202 INFO:Idtech initializing serial device Idtech ... Module: Device_thread Line:161 Function: initialize_device
+2016-07-23 12:07:17,285 INFO:Idtech source port set to /dev/ttyUSB0 Module: Device_thread Line:163 Function: initialize_device
+2016-07-23 12:07:17,285 INFO:Idtech waiting for data... Module: Device_thread Line:38 Function: read_data_Serial
+2016-07-23 12:07:29,140 INFO:Idtech Thread Idtech is starting... Module: Device_thread Line:184 Function: run
+2016-07-23 12:07:29,141 DEBUG:Idtech initializing device /dev/ttyUSB0 Module: Device_thread Line:185 Function: run
+2016-07-23 12:07:29,141 INFO:Idtech initializing serial device Idtech ... Module: Device_thread Line:161 Function: initialize_device
+2016-07-23 12:07:29,142 INFO:Idtech source port set to /dev/ttyUSB0 Module: Device_thread Line:163 Function: initialize_device
+2016-07-23 12:07:29,142 INFO:Idtech waiting for data... Module: Device_thread Line:38 Function: read_data_Serial
+2016-07-23 12:07:35,754 ERROR:Idtech Error reading data device reports readiness to read but returned no data (device disconnected or multiple access on port?) Module: Device_thread Line:47 Function: read_data_Serial
+2016-07-23 12:07:35,754 ERROR:Idtech Error device reports readiness to read but returned no data (device disconnected or multiple access on port?) Module: Device_thread Line:220 Function: run

@@ -1,0 +1,29 @@
+import serial
+import time
+# TO DO: SEND AC K TO DEVICE
+# initialization and open the port
+ser = serial.Serial()
+ser.port = "/dev/ttyUSB0"
+ser.bytesize = serial.EIGHTBITS  # number of bits per bytes
+ser.timeout = 0  # non-block read
+ack="xxxxxxx"
+try:
+    ser.open()
+except Exception:
+    print ("error open serial port: " + str(Exception))
+
+if ser.isOpen():
+    try:
+        ser.flushInput()  # flush input buffer, discarding all its contents
+        ser.flushOutput()  # flush output buffer, aborting current output
+        # and discard all that is in buffer
+        # write data
+        ser.write(ack.encode())
+        print("write data:" + ack)
+        time.sleep(5)  # give the serial port sometime to receive the data
+        response = ser.readline()
+        print("read data: " + response)
+        ser.close()
+
+    except Exception:
+        print ("error communicating...: " + str(Exception))
