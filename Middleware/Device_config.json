@@ -1,23 +1,27 @@
-{"settings":[
-  {
-    "Baudrate": "",
-    "IO": "input",
-    "Name": "Idtech",
-    "Path": "/dev/ttyUSB0",
-    "ProductID": "2303",
-    "VendorID": "067b",
-    "Send": "True",
-    "Subsystem":"tty"
-  },
-  {
-    "Baudrate": "",
-    "IO": "output",
-    "Name": "Elatek",
-    "Path": "/dev/hidraw0",
-    "ProductID": "2303",
-    "VendorID": "067b",
-    "Send": "True",
-    "Subsystem":"hid"
-  }
-]
+{
+  "settings": [
+
+      {
+      "Baudrate": "",
+      "IO": "input",
+      "Name": "IDTECH",
+      "Path": "/dev/ttyUSB0",
+      "ProductID": "2303",
+      "VendorID": "067b",
+      "Send": "True",
+      "Subsystem": "tty"
+    },
+     {
+      "Baudrate": "",
+      "IO": "input",
+      "Name": "Elatek",
+      "Path": "/dev/hidraw0",
+      "ProductID": "2303",
+      "VendorID": "067b",
+      "Send": "True",
+      "Subsystem": "hid"
+    }
+
+
+  ]
 }

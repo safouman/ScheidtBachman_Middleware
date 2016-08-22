@@ -8,56 +8,69 @@ import {
     FLUSH_READ_DATA,
     CONFIG_ERROR,
     CLEAR,
-    SAVE_CONFIG
+    SAVE_CONFIG,
+    UPLOAD_SUCCESS,
+    RESET_UPLOAD,
+    MIDDLEWARE,
+    MIDDLEWARE_ERROR
 } from '../actions/types'
-const confirmed_devices=[];
-export default function (state={confirmed_devices:[]}, action) {
-          switch (action.type) {
-              case DEVICES_SELECTED:
+const confirmed_devices = [];
+export default function (state = {confirmed_devices: [], upload: false}, action) {
+    switch (action.type) {
+        case DEVICES_SELECTED:
 
-                  return {...state, selected_devices: action.payload};
-              case UNSELECT_DEVICE:
+            return {...state, selected_devices: action.payload};
+        case UNSELECT_DEVICE:
 
-                  return {
-                      ...state, selected_devices: [...state.selected_devices.slice(0, action.payload),
-                          ...state.selected_devices.slice(action.payload + 1)]
-                  }
-              case CONFIRM_DEVICE:
+            return {
+                ...state, selected_devices: [...state.selected_devices.slice(0, action.payload),
+                    ...state.selected_devices.slice(action.payload + 1)]
+            }
+        case CONFIRM_DEVICE:
 
-                   
-                  return {
-                      ...state, confirmed_devices: [
-                          ...state.confirmed_devices,
-                          action.payload,
 
-                      ]
-                  }
-              case UNCONFIRM_DEVICE:
-                
-             
-                  return {
-                      ...state, confirmed_devices: [...state.confirmed_devices.slice(0, action.payload),
-                          ...state.confirmed_devices.slice(action.payload + 1)]
-                  }
-              case READ_DEVICE:
+            return {
+                ...state, confirmed_devices: [
+                    ...state.confirmed_devices,
+                    action.payload,
 
-                  return {...state, read_data: action.payload}
+                ]
+            }
+        case UNCONFIRM_DEVICE:
 
-              case SEND_ACK:
-                  console.log(action.payload)
-                  return {...state, ack:action.payload}
-              case FLUSH_READ_DATA:
 
-                  return {...state, read_data: [], confirmed_devices:[],ack:"",config_error:""}
-              case CONFIG_ERROR:
-                  return {...state, config_error: action.payload};
-              case CLEAR:
-                  return {...state,read_data: [],ack:"", config_error:""}
-              case SAVE_CONFIG:
-                  console.log("config",action.payload)
-                  return{...state,config:action.payload}
-          }
+            return {
+                ...state, confirmed_devices: [...state.confirmed_devices.slice(0, action.payload),
+                    ...state.confirmed_devices.slice(action.payload + 1)],
+                config: ""
+            }
+        case READ_DEVICE:
 
-  return state;
+            return {...state, read_data: action.payload}
+
+        case SEND_ACK:
+            console.log(action.payload)
+            return {...state, ack: action.payload}
+        case FLUSH_READ_DATA:
+
+            return {...state, read_data: [], confirmed_devices: [], ack: "", config_error: "", config: ""}
+        case CONFIG_ERROR:
+            return {...state, config_error: action.payload};
+        case CLEAR:
+            return {...state, read_data: [], ack: "", config_error: ""}
+        case SAVE_CONFIG:
+            console.log("config", action.payload)
+            return {...state, config: action.payload}
+        case UPLOAD_SUCCESS:
+            return {...state, upload: true}
+        case RESET_UPLOAD:
+            return {...state, upload: false}
+        case MIDDLEWARE:
+            return {...state, middleware_names: action.payload}
+        case MIDDLEWARE_ERROR:
+            return {...state, middleware_names_error: action.payload};
+    }
+
+    return state;
 };
 

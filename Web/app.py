@@ -1,10 +1,11 @@
-
+LOG_DIR = "../Middleware/Logs/"
+UPLOAD_FOLDER = '../Uploads'
 from werkzeug.serving import run_simple
-
+from flask.ext.cors import CORS, cross_origin
 from flask_webpack import Webpack
+from flask import send_from_directory
+from flask import Flask, render_template, jsonify, abort, request, g, url_for
 
-from flask import Flask , render_template , jsonify, abort, request, g, url_for
-from flask_cors import CORS
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_httpauth import HTTPBasicAuth
@@ -12,9 +13,9 @@ from passlib.apps import custom_app_context as pwd_context
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
 import api.usb
+from werkzeug.utils import secure_filename
 
 webpack = Webpack()
-
 
 def create_app():
     """
@@ -28,7 +29,10 @@ def create_app():
         'WEBPACK_MANIFEST_PATH': './build/manifest.json',
         'SECRET_KEY': 'the quick brown fox jumps over the lazy dog',
         'SQLALCHEMY_DATABASE_URI': 'sqlite:///db.sqlite',
-        'SQLALCHEMY_COMMIT_ON_TEARDOWN': True
+        'SQLALCHEMY_COMMIT_ON_TEARDOWN': True,
+        'UPLOAD_FOLDER':UPLOAD_FOLDER,
+        'ALLOWED_EXTENSIONS': set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','zip','log'])
+
     }
 
     app.config.update(settings)
@@ -37,13 +41,22 @@ def create_app():
 
     return app
 
+
+# For a given file, return whether it's an allowed type or not
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
+
+
 # extensions
 
 app = create_app()
 db = SQLAlchemy(app)
 auth = HTTPBasicAuth()
+CORS(app)
 
-#user model for auth
+
+# user model for auth
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -66,11 +79,12 @@ class User(db.Model):
         try:
             data = s.loads(token)
         except SignatureExpired:
-            return None    # valid token, but expired
+            return None  # valid token, but expired
         except BadSignature:
-            return None    # invalid token
+            return None  # invalid token
         user = User.query.get(data['id'])
         return user
+
 
 @auth.verify_password
 def verify_password(username_or_token, password):
@@ -84,6 +98,7 @@ def verify_password(username_or_token, password):
     g.user = user
     return True
 
+
 @app.errorhandler(400)
 def custom400(error):
     response = jsonify({'message': error.description})
@@ -93,23 +108,22 @@ def custom400(error):
 
 @app.route('/')
 def index():
-    return render_template('index.jinja2')
+    return render_template('index.html')
 
 
-@app.route('/api/signup', methods = ['POST'])
+@app.route('/api/signup', methods=['POST'])
 def new_user():
     username = request.json.get('username')
     password = request.json.get('password')
     if username is None or password is None:
-        abort(400) # missing arguments
-    if User.query.filter_by(username = username).first() is not None:
-        abort(400,'user already in use') # existing user
-    user = User(username = username)
+        abort(400)  # missing arguments
+    if User.query.filter_by(username=username).first() is not None:
+        abort(400, 'user already in use')  # existing user
+    user = User(username=username)
     user.hash_password(password)
     db.session.add(user)
     db.session.commit()
-    return jsonify({ 'username': user.username }), 201, {'Location': url_for('get_user', id = user.id, _external = True)}
-
+    return jsonify({'username': user.username}), 201, {'Location': url_for('get_user', id=user.id, _external=True)}
 
 
 @app.route('/api/users/<int:id>')
@@ -119,55 +133,120 @@ def get_user(id):
         abort(400)
     return jsonify({'username': user.username})
 
-@app.route('/api/token' )
+
+@app.route('/api/token')
 @auth.login_required
 def get_auth_token():
     token = g.user.generate_auth_token(600)
     return jsonify({'token': token.decode('ascii'), 'duration': 600})
 
+
 @app.route('/api/list_usb', methods=['GET'])
 @auth.login_required
 def get_usb():
-    usb= api.usb.list_usb()
-    return jsonify(results=usb)
+    usb = api.usb.list_usb()
+    return (usb)
+
 
 @app.route('/api/read_device', methods=['POST'])
 @auth.login_required
 def get_read():
-    path=request.json.get('path')
-    Subsystem=request.json.get('Subsystem')
-    test= api.usb.read_thread(path, Subsystem)
+    path = request.json.get('path')
+    Subsystem = request.json.get('Subsystem')
+    test = api.usb.read_thread(path, Subsystem)
     return jsonify(test=test)
+
 
 @app.route('/api/send_ack', methods=['POST'])
 @auth.login_required
 def send_ack():
-    path=request.json.get('path')
+    path = request.json.get('path')
     Subsystem = request.json.get('Subsystem')
     ack = request.json.get('ack')
     try:
-        baudrate=int(float(request.json.get('baudrate')))
+        baudrate = int(float(request.json.get('baudrate')))
     except:
-        baudrate=9600
-    response= app.api.usb.send_ack(path, baudrate, Subsystem, ack)
+        baudrate = 9600
+    response = app.usb.send_ack(path, baudrate, Subsystem, ack)
     return jsonify(ack=response)
+
 
 @app.route('/api/save_config', methods=['POST'])
 @auth.login_required
 def save_config():
-    config=request.json.get('config')
-    result= app.api.usb.save_config(config)
+    config = request.json.get('config')
+    result = api.usb.save_config(config)
     response = jsonify({'result': result})
 
     return response
 
-# Please use a proper wsgi server such as gunicorn, I am only using this to keep
+
+@app.route('/api/fetch_log', methods=['POST'])
+def fetch_log():
+    name = request.json.get('name')
+
+    data = api.usb.LogtoJSON(name)
+    return jsonify(data)
+
+
+@app.route('/api/log_names', methods=['GET'])
+def log_names():
+    data = api.usb.getLogNames()
+    return jsonify(data)
+
+@app.route('/api/middlware_names', methods=['GET'])
+def middleware_names():
+    data = api.usb.getmiddlwareNames()
+    return jsonify(data)
+@app.route('/api/download/<filename>', methods=['GET'])
+def download_file(filename):
+    try:
+        print filename
+        name = api.usb.downloadLog(filename)
+        print name
+
+        return send_from_directory(LOG_DIR, name, mimetype='application/zip', as_attachment=True)
+
+    except Exception as e:
+        return str(e)
+
+
+@app.route('/api/download', methods=['GET'])
+def download_file2():
+    filename = request.json.get('name')
+
+    if filename is None:
+        abort(404)
+    else:
+        return download_file(filename)
+
+    # Route that will process the file upload
+@app.route('/upload', methods=['POST'])
+@cross_origin()
+def upload():
+
+        # Get the name of the uploaded file
+        #print (request.files)
+        file = request.files['file']
+
+        # Check if the file is one of the allowed types/extensions
+        if file and allowed_file(file.filename):
+            # Make the filename safe, remove unsupported chars
+            filename = secure_filename(file.filename)
+            # Move the file form the temporal folder to
+            # the upload folder we setup
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # Redirect the user to the uploaded_file route, which
+            # will basicaly show on the browser the uploaded file
+
+            return "success"
+
+# Please use a pro
+# per wsgi server such as gunicorn, I am only using this to keep
 # the demo app as simple as possible.
 if __name__ == '__main__':
 
+    if not os.path.exists('db.sqlite'):
+        db.create_all()
 
-
-        if not os.path.exists('db.sqlite'):
-            db.create_all()
-
-        run_simple('localhost', 5000, app, use_reloader=True, use_debugger=True)
+    run_simple('localhost', 5000, app, use_reloader=True, use_debugger=True)

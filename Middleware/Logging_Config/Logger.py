@@ -3,7 +3,9 @@ import logging
 import settings   # alternativly from whereever import settings
 from logging.handlers import RotatingFileHandler
 from logging.handlers import TimedRotatingFileHandler
-import time
+import datetime
+import json_log_formatter
+
 class Logger(object):
 
     def __init__(self, name):
@@ -28,7 +30,8 @@ class Logger(object):
 
             handler = RotatingFileHandler(file_name,maxBytes=50*1024*1024,
                                   backupCount=1)
-            formatter = logging.Formatter('%(asctime)s %(levelname)s:%(name)s %(message)s Module: %(module)s Line:%(lineno)s Function: %(funcName)s')
+            formatter = CustomisedJSONFormatter()
+                #logging.Formatter('%(asctime)s %(levelname)s:%(name)s %(message)s Module: %(module)s Line:%(lineno)s Function: %(funcName)s')
             handler.setFormatter(formatter)
             console.setFormatter(formatter)
             handler.setLevel(logging.DEBUG)
@@ -41,3 +44,12 @@ class Logger(object):
         return self._logger
 
 
+class CustomisedJSONFormatter(json_log_formatter.JSONFormatter):
+    def json_record(self, message, extra, record):
+        extra['TimeStamp'] = datetime.datetime.now()
+        extra['Message'] = message,
+        extra['LevelName'] = record.__dict__['levelname'],
+        extra['Source'] = record.__dict__['threadName'],
+        extra['Function Name']=record.__dict__['funcName'],
+
+        return extra

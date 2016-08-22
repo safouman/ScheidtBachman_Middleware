@@ -1,1 +1,1 @@
-LOGGING_DIR="../Work/Logs"
+LOGGING_DIR="../Middleware/Logs"

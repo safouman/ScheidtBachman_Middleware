@@ -11,6 +11,8 @@ var rootAssetPath = './assets';
 var buildOutputPath = './build/public';
 
 module.exports = {
+
+
     entry: {
         // Chunks (files) that will get written out for JS and CSS files.
         app_js: [
@@ -25,10 +27,11 @@ module.exports = {
         // Where and how will the files be formatted when they are output.
         path: buildOutputPath,
         publicPath: publicHost + '/assets/',
-        filename: '[name].[hash].js',
-        chunkFilename: '[id].[hash].js'
+        filename: 'app.js',
+        chunkFilename: 'app.js'
     },
     resolve: {
+
         // Avoid having to require files with an extension if they are here.
         extensions: ['', '.js', '.jsx', '.css']
     },
@@ -44,15 +47,19 @@ module.exports = {
             {
                 test: /\.css$/i,
                 loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
-            },
-
-        ]
+            },// Font Definitions
+        // Font Definitions
+   {
+                test: /\.(eot|svg|ttf|woff|woff2)$/,
+                loader: 'file?name=public/fonts/[name].[ext]'
+            }
+    ]
     },
     plugins: [
         // Stop modules with syntax errors from being emitted.
         new webpack.NoErrorsPlugin(),
         // Ensure CSS chunks get written to their own file.
-        new ExtractTextPlugin('[name].[hash].css'),
+        new ExtractTextPlugin('main.css'),
         // Create the manifest file that Flask and other frameworks use.
         new ManifestRevisionPlugin(path.join('build', 'manifest.json'), {
             rootAssetPath: rootAssetPath,

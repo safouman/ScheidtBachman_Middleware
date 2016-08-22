@@ -1,1 +1,3 @@
-2016-07-23 12:03:02,935 INFO:TRANSACTION_Elatek INPUT = 3044750360 Module: Device_thread Line:200 Function: run
+{"TimeStamp": "2016-08-19T21:21:45.033990", "Message": ["INPUT = 38662501505"], "Function Name": ["run"], "LevelName": ["INFO"], "Source": ["Elatek"]}
+{"TimeStamp": "2016-08-19T21:22:17.905749", "Message": ["INPUT = 38662501505"], "Function Name": ["run"], "LevelName": ["INFO"], "Source": ["Elatek"]}
+{"TimeStamp": "2016-08-19T21:23:03.393608", "Message": ["INPUT = 38662501505"], "Function Name": ["run"], "LevelName": ["INFO"], "Source": ["Elatek"]}

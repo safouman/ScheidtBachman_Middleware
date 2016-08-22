@@ -1,7 +1,7 @@
 import  React, {Component} from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
-
+import LogViewer from './LogViewer';
 const styles = {
     container: {
         height: '100%',
@@ -46,23 +46,8 @@ class LogViewerContainer extends Component {
         return (
             <div style={styles.container}>
                 <Paper style={styles.paper} zDepth={2}>
-                    <Tabs
-                        value={this.state.value}
-                        onChange={this.handleChange.bind(this)}
-                    >
-                        <Tab label="View Logs" value="view logs">
-                            <div>
-                              s
-                            </div>
-                        </Tab>
-                        <Tab label="Download Logs" value="Download Logs">
-                            <div>
-                                <h2 style={styles.headline}>Controllable Tab B</h2>
-                                will be able to download logs
-                            </div>
-                        </Tab>
-                    </Tabs>
-                </Paper>    
+                  <LogViewer/>
+                </Paper>
             </div>)
     }
 

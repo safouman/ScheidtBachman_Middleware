@@ -1,3 +1,51 @@
-2016-07-22 10:57:17,805 INFO:Main Main is starting  Module: main Line:26 Function: <module>
-2016-07-22 11:01:56,552 INFO:Main Main is starting  Module: main Line:26 Function: <module>
-2016-07-22 11:08:23,960 INFO:Main Main is starting  Module: main Line:26 Function: <module>
+
+{"TimeStamp": "2016-08-17T19:26:42.368725", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:26:42.369378", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:26:42.380634", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:26:42.381074", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:27:43.685567", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:27:43.686250", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:27:43.686492", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:27:43.686939", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:29:33.552604", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:29:33.553209", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:29:33.553404", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:29:33.553782", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:32:45.741781", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:32:45.742407", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:32:45.742588", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:32:45.743053", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:39:24.858969", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:39:24.859566", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:39:24.859748", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T19:39:24.860207", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:01:12.349940", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:01:12.361926", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:01:12.362354", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:01:12.363066", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:01:28.732960", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:01:28.733925", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:01:47.475551", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:01:47.476343", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:01:47.476525", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:01:47.476812", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:02:28.052794", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:02:28.053614", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:02:28.053818", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-17T20:02:28.054098", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-18T14:32:53.140702", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-18T14:32:53.141614", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-18T14:32:53.151671", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-18T14:32:53.152189", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-18T14:34:53.321657", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-18T14:34:53.322774", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-18T14:34:53.323095", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-18T14:34:53.323562", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-19T21:20:57.064498", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-19T21:20:57.065052", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-19T21:20:57.087853", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-19T21:20:57.088449", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-19T21:21:39.814901", "Message": ["Main is starting "], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-19T21:21:39.815536", "Message": ["Loading Settings..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-19T21:21:39.815716", "Message": ["Creating Threads..."], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}
+{"TimeStamp": "2016-08-19T21:21:39.816162", "Message": ["Starting Threads"], "Function Name": ["<module>"], "LevelName": ["INFO"], "Source": ["MainThread"]}

@@ -5,43 +5,32 @@ import pyudev
 import serial
 import time
 import multiprocessing
+import os
 
-
+import zipfile
+LOG_DIR="../Middleware/Logs/"
+UPLOAD="../Uploads"
 #List available Devices
 def list_usb():
 
-    # usb_list=filter(None, re.split('\n',subprocess.check_output('lsusb')))
-    #
-    #
-    # temp_list=[]
-    # data={}
-    # for list in usb_list:
-    #     temp_list.append(filter(None,re.split(':',list)))
-    # for sub in temp_list:
-    #
-    #
-    #
-    #      data[sub[2]]=sub[1]
-    #
-    # finaldata= { "result": [{'VendorID': key, "ProductID": value} for key, value in data.items()]}
-    # print finaldata
-
     context = pyudev.Context()
-    finaldata = {"result": []}
+
+    data0 = []
     i = 0
     for device in context.list_devices(ID_BUS='usb' ):
+        data = {}
         if(device.get('DEVNAME')!=None) and ((device.get('SUBSYSTEM')=='hidraw') or (device.get('SUBSYSTEM')=='tty')):
-            Name = device.get('ID_SERIAL')
+            data['ID']=i
+            data['Name'] = device.get('ID_SERIAL')
+            data['VendorID'] = device.get('ID_VENDOR_ID')
+            data['ProductID'] = device.get('ID_MODEL_ID')
+            data['Subsystem'] = device.get('SUBSYSTEM')
+            data['Path'] = device.get('DEVNAME')
+            i=i+1
+            data0.append(data)
 
-            VendorID = device.get('ID_VENDOR_ID')
-            Prod_ID = device.get('ID_MODEL_ID')
-            Subsystem = device.get('SUBSYSTEM')
-            path = device.get('DEVNAME')
 
-            finaldata["result"].append(
-                {'id': i, 'Name': Name, 'VendorID': VendorID, 'ProductID': Prod_ID, 'Subsystem': Subsystem, 'Path': path})
-            i = i + 1
-    return (finaldata)
+    return json.dumps(data0)
 #Handles reading from HID and Serial Devices
 def read_device(q,path,Subsystem):
 
@@ -181,18 +170,111 @@ def send_ack(path,baudrate=9600,Subsystem="tty",ack="AT+CSQ=?x0D"):
 
     else:
         return "device not serial device"
-
+#save config file
 def save_config(config):
     try:
         print config
         jsondata = json.dumps(config, indent=4, skipkeys=True, sort_keys=True)
-        fd = open("/home/safwen/PycharmProjects/react-flask /app/api/config.json", 'w')
+        fd = open("../Middleware/device_config.json", 'w')
         fd.write(jsondata)
         fd.close()
         return "saved"
     except:
         print 'ERROR writing', "config.json"
         return 'ERROR writing', "config.json"
+#fetch Log to datatable
+def LogtoJSON(name='Main.log'):
+  try:
+    with open(LOG_DIR+name, 'r') as file:
+        content = file.read()
+        content = content.split("\n")
+        content=filter(None,content)
+    json_data = []
+    for line in content:
+        json_data.append(json.loads(line))
+    return json_data
+  except Exception as e:
+      print(e),
+      return {}
+
+#get Log file names
+def getLogNames():
+    files=[]
+    for file in os.listdir(LOG_DIR):
+        if file.endswith('.log'):
+            files.append(file)
+    old_index = files.index("Main.log")
+    files.insert(0, files.pop(old_index))
+    return json.dumps(files)
+
+#geet middleware names :
+def getmiddlwareNames():
+    files = []
+    for file in os.listdir(UPLOAD):
+
+            files.append(file)
+
+    return json.dumps(files)
+#Download FIle always zip content
+
+def downloadLog(name='ALL'):
+
+    try:
+        import zlib
+        compression = zipfile.ZIP_DEFLATED
+    except:
+        compression = zipfile.ZIP_STORED
+
+    modes = {zipfile.ZIP_DEFLATED: 'deflated',
+             zipfile.ZIP_STORED: 'stored',
+             }
+    try:
+        files = []
+        for file in os.listdir(LOG_DIR):
+            if file.endswith('.log'):
+                files.append(file)
+
+        if name == 'ALL':
+
+            zf = zipfile.ZipFile(LOG_DIR + name+'_Logs.zip', mode='w', )
+
+            # 'adding ALL LOGS  with compression mode', modes[compression]
+            for file in files:
+                zf.write(LOG_DIR + file, arcname=file, compress_type=compression)
+
+                # zip all log files and return zip file to be sent
+            return name+'_Logs.zip'
+        elif name == 'TRANSACTION':
+
+
+
+                zf = zipfile.ZipFile(LOG_DIR + name+'_Logs.zip', mode='w', )
+
+                # 'adding TRANSACTIONS  with compression mode', modes[compression]
+                for file in files:
+
+                    if file.startswith('TRANSACTION'):
+                        zf.write(LOG_DIR + file, arcname=file, compress_type=compression)
+
+                        # zip all log files and return zip file to be sent
+                return name+'_Logs.zip'
+        elif name.endswith('log'):
+
+            zf = zipfile.ZipFile(LOG_DIR + name[0:-4] +'_Logs.zip', mode='w', )
+
+            # 'adding the current file  with compression mode', modes[compression]
+
+
+            zf.write(LOG_DIR + name, arcname=name, compress_type=compression)
+            return name[0:-4]+'_Logs.zip'
+
+
+
+    except Exception as e:
+       print (e)
+
+
+
 
 
 

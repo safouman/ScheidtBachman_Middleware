@@ -5,18 +5,19 @@ import { createStore, applyMiddleware } from 'redux';
 import  {Router, Route, browserHistory, IndexRoute} from 'react-router';
 import reducers from './reducers';
 import App from './components/app';
-import Config from './components/config';
+import Config from './components/configView/config';
 import Signin from './components/auth/signin';
 import Signup from './components/auth/signup';
 import Signout from './components/auth/signout';
 import Welcome from './components/welcome';
-import Devicelist from './components/deviceprops';
-import ConfigStepper from './components/configstepper'
+import Devicelist from './components/configView/deviceprops';
+import ConfigStepper from './components/configView/configstepper'
 import requireAuth from './components/higherOrderComponents/require_authentication';
 import Container from './components/LogViewer/Container';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import reduxThunk from 'redux-thunk';
 import {AUTH_USER} from './actions/types'
+
 
 injectTapEventPlugin();
 

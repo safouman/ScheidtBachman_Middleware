@@ -12,7 +12,7 @@ const styles = {
     }}
 export default ()=>{
     return(<div style={styles.container}>
-        <h1>xync </h1>
+        <h1><strong>Welcome</strong></h1>
          <Link to="configdevices"><RaisedButton label="Configure Devices" primary={true} style={styles.raisedButton} /></Link>
          <Link to="logviewer"><RaisedButton label="Check Log" primary={true} style={styles.raisedButton} /></Link>
     </div>);
