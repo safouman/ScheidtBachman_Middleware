@@ -50,6 +50,6 @@ class CustomisedJSONFormatter(json_log_formatter.JSONFormatter):
         extra['Message'] = message,
         extra['LevelName'] = record.__dict__['levelname'],
         extra['Source'] = record.__dict__['threadName'],
-        extra['Function Name']=record.__dict__['funcName'],
+
 
         return extra

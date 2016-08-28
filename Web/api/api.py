@@ -175,7 +175,7 @@ def save_config(config):
     try:
         print config
         jsondata = json.dumps(config, indent=4, skipkeys=True, sort_keys=True)
-        fd = open("../Middleware/device_config.json", 'w')
+        fd = open("../Middleware/Device_config.json", 'w')
         fd.write(jsondata)
         fd.close()
         return "saved"
@@ -200,11 +200,13 @@ def LogtoJSON(name='Main.log'):
 #get Log file names
 def getLogNames():
     files=[]
+
     for file in os.listdir(LOG_DIR):
         if file.endswith('.log'):
             files.append(file)
-    old_index = files.index("Main.log")
-    files.insert(0, files.pop(old_index))
+    if("Main.log" in files):
+        old_index = files.index("Main.log")
+        files.insert(0, files.pop(old_index))
     return json.dumps(files)
 
 #geet middleware names :

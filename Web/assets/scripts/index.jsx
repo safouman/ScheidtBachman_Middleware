@@ -37,7 +37,6 @@ ReactDOM.render(
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Welcome}/>
-            <Route path="config" component={requireAuth(Config)}/>
             <Route path="configdevices" component={requireAuth(ConfigStepper)}/>
             <Route path="logviewer" component={Container}/>
             <Route path="signin" component={Signin}/>

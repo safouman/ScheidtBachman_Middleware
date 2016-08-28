@@ -11,7 +11,7 @@ const styles = {
     container: {
 
         textAlign: 'center',
-        paddingTop: 200,
+
     }, raisedButton: {
         margin: 12,
     },
@@ -93,7 +93,11 @@ class Devicelist extends React.Component {
 
 
     renderDevices() {
-        if (this.props.devices) {
+
+        if ((typeof this.props.devices != 'undefined')){
+
+        if(this.props.devices.length>0){
+
             return (<div>
                     <Table
                         height={this.state.height}
@@ -145,15 +149,15 @@ class Devicelist extends React.Component {
                 </div>
             );
         }
-        else {
+        else     {
             return <div><center><h3>No devices found..</h3></center></div>
-        }
+        }}
    }
 
     render() {
     console.log("props",this.props.devices)
         return (
-            <div >
+            <div style={styles.container}>
                 {this.renderDevices()}
                 <RaisedButton label="Reload Devices" primary={true} style={styles.raisedButton}
                               onClick={this.reloadDevices.bind(this)}/>

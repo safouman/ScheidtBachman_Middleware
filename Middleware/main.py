@@ -5,10 +5,8 @@ from collections import namedtuple
 import json
 
 
-source_serial="/dev/ttyUSB0"
-source="/dev/hidraw0"
+
 destination="/dev/ttyUSB0"
-name="IDTECH"
 
 
 
@@ -19,19 +17,35 @@ if  __name__ == "__main__":
     logger.info('Main is starting ')
     try:
 
-        settings = namedtuple('settings', 'Name, IO, Path, Baudrate, Send, VendorID, ProductID, Subsystem')
+        settings = namedtuple('settings', 'Name, Output, Path, Baudrate, Send, VendorID, ProductID, Subsystem, Process,confirmed,ID')
         logger.info("Loading Settings...")
         with open('Device_config.json') as data_file:
             data = json.load(data_file)
 
+
+
+
+
+
         params = [settings(**k) for k in data["settings"]]
+
+        # for i in params:
+        #         if i[1]==True:
+        #             destination= i[2]
+        #             params.pop(params.index(i))
+        # if not destination.startswith('/dev/tty'):
+        #        raise Exception("Destination path is not a serial device !")
+        #
+
+
+
 
 
         logger.info("Creating Threads...")
-        Threads = [Device_thread(idx, val.Name, val.Path, destination, val.Subsystem, val.Send, val.Baudrate) for idx, val
+        Threads = [Device_thread(idx, val.Name, val.Path, destination, val.Subsystem,val.Process, val.Send, val.Baudrate) for idx, val
                    in enumerate(params)]
         logger.info("Starting Threads")
         for thread in Threads:
             thread.start()
     except Exception as e:
-        logger.error("Error in Main",e)
+        logger.error("Error in Main %s",e)

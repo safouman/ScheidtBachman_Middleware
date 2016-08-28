@@ -42,7 +42,9 @@ class configstepper extends React.Component {
 
     };
 
-
+componentWillMount(){
+    this.props.clear()
+}
     renderAlert() {
         if (this.props.config_state) {
             return (
@@ -76,27 +78,29 @@ class configstepper extends React.Component {
 
     renderSelected() {
 
-        if (this.props.selected_devices) {
+        if ((typeof this.props.selected_devices != 'undefined')) {
             if (this.props.selected_devices.length > 0) {
+
                 return (
                     this.props.selected_devices.map((row, index) => (
                         <DeviceProps key={index} row={row} index={index}/>
 
                     )))
-            }
 
+            }
             else {
                 return ( <div style={{textAlign: 'center'}}><h3>No device selected</h3></div>)
             }
-
-
         }
-    };
+
+
+    }
+
 
     renderStepActions(step) {
 
         return (
-            <div style={{margin: '12px 0'}}>
+            <div style={{marginTop: '100px'}}>
 
                 {step > 0 && (
                     <RaisedButton
@@ -111,18 +115,43 @@ class configstepper extends React.Component {
         );
     }
 
+
+
     handleSaveConfig() {
-console.log(this.props.confirmed_devices,"confirmed devices")
-        if (this.props.confirmed_devices.length > 0) {
-            this.props.saveConfig(this.props.confirmed_devices)
+
+        var destination = false
+        var process_missing = true
+        for (let item in this.props.confirmed_devices) {
+            if (this.props.confirmed_devices[item].Process != "") {
+                process_missing = false
+            }
+            if (this.props.confirmed_devices[item].Output == (true)) {
+
+                destination = true
+            }
+
         }
-        else {
-            this.props.configError("Please Confirm Selected Devices ")
+        if (this.props.confirmed_devices.length == 0) {
+            this.props.configError("No Devices Are Confirmed Nothing To Save..")
+
+        }
+        else if (destination == false) {
+            this.props.configError("You Need To Select an Output Device ")
+
+        }
+        else if (process_missing == true) {
+            this.props.configError("Each Device Must Have a Process ")
+
+        }
+
+        else
+        {
+            this.props.saveConfig(this.props.confirmed_devices)
         }
     }
 
     handleRadio(event, value) {
-
+    this.props.clear()
         this.setState({radio: value})
 
     }
@@ -132,7 +161,7 @@ console.log(this.props.confirmed_devices,"confirmed devices")
             return (<div style={styles.container}><MultipleUpload/></div>)
         } else {
             if ((this.state.radio == 'one')) {
-                return (<div ><SimpleUpload/></div>)
+                return (<div style={styles.container}><SimpleUpload/></div>)
             }
         }
     }
@@ -206,7 +235,7 @@ console.log(this.props.confirmed_devices,"confirmed devices")
                                 </center>
                                 <div >
                                     {this.renderUpload()}
-                                    <center>{this.renderStepActions(1)}</center>
+                                    <center>{this.renderStepActions(2)}</center>
                                     <div> {this.renderAlert()}</div>
                                 </div>
 

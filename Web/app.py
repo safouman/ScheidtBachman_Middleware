@@ -12,7 +12,7 @@ from flask_httpauth import HTTPBasicAuth
 from passlib.apps import custom_app_context as pwd_context
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
-import api.usb
+import api.api
 from werkzeug.utils import secure_filename
 
 webpack = Webpack()
@@ -69,8 +69,8 @@ class User(db.Model):
     def verify_password(self, password):
         return pwd_context.verify(password, self.password_hash)
 
-    def generate_auth_token(self, expiration=600):
-        s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
+    def generate_auth_token(self):
+        s = Serializer(app.config['SECRET_KEY'])
         return s.dumps({'id': self.id})
 
     @staticmethod
@@ -105,6 +105,9 @@ def custom400(error):
     response.status_code = 400
     return response
 
+@app.route('/<path:path>', methods=['GET'])
+def any_root_path(path):
+    return render_template('index.html')
 
 @app.route('/')
 def index():
@@ -137,14 +140,14 @@ def get_user(id):
 @app.route('/api/token')
 @auth.login_required
 def get_auth_token():
-    token = g.user.generate_auth_token(600)
-    return jsonify({'token': token.decode('ascii'), 'duration': 600})
+    token = g.user.generate_auth_token()
+    return jsonify({'token': token.decode('ascii'),})
 
 
 @app.route('/api/list_usb', methods=['GET'])
 @auth.login_required
 def get_usb():
-    usb = api.usb.list_usb()
+    usb = api.api.list_usb()
     return (usb)
 
 
@@ -153,7 +156,7 @@ def get_usb():
 def get_read():
     path = request.json.get('path')
     Subsystem = request.json.get('Subsystem')
-    test = api.usb.read_thread(path, Subsystem)
+    test = api.api.read_thread(path, Subsystem)
     return jsonify(test=test)
 
 
@@ -175,7 +178,7 @@ def send_ack():
 @auth.login_required
 def save_config():
     config = request.json.get('config')
-    result = api.usb.save_config(config)
+    result = api.api.save_config(config)
     response = jsonify({'result': result})
 
     return response
@@ -185,24 +188,24 @@ def save_config():
 def fetch_log():
     name = request.json.get('name')
 
-    data = api.usb.LogtoJSON(name)
+    data = api.api.LogtoJSON(name)
     return jsonify(data)
 
 
 @app.route('/api/log_names', methods=['GET'])
 def log_names():
-    data = api.usb.getLogNames()
+    data = api.api.getLogNames()
     return jsonify(data)
 
 @app.route('/api/middlware_names', methods=['GET'])
 def middleware_names():
-    data = api.usb.getmiddlwareNames()
+    data = api.api.getmiddlwareNames()
     return jsonify(data)
 @app.route('/api/download/<filename>', methods=['GET'])
 def download_file(filename):
     try:
         print filename
-        name = api.usb.downloadLog(filename)
+        name = api.api.downloadLog(filename)
         print name
 
         return send_from_directory(LOG_DIR, name, mimetype='application/zip', as_attachment=True)

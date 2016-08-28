@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppBar, Drawer, MenuItem, FlatButton, Menu, Paper} from 'material-ui';
+import {AppBar, MenuItem, FlatButton, Menu, Paper} from 'material-ui';
 import {Link} from 'react-router';
 import  {connect} from 'react-redux';
 import * as actions from '../actions'
@@ -55,22 +55,11 @@ class Header extends Component {
         return (
 
             <div>
-                <Drawer
-                    docked={false}
-                    open={this.state.open} onRequestChange={this.handleClose.bind(this) }>
 
-                        <Menu>
-                            <MenuItem onTouchTap={this.handleClose.bind(this)}>Menu Item 1</MenuItem>
-                            <MenuItem onTouchTap={this.handleClose.bind(this)}>Menu Item 2</MenuItem>
-                            <MenuItem onTouchTap={this.handleClose.bind(this)}>Menu Item 3</MenuItem>
-                        </Menu>
-
-                </Drawer>
 
                 <AppBar title="Scheidt & Bachmann" iconElementRight={
                     <div>
                         <Link to="/"> <FlatButton label=" Home" style={styles.link}/></Link>
-                        <Link to="/config"> <FlatButton label=" Config" style={styles.link}/></Link>
                         {this.renderSignBtn()}
                     </div>
                 } onLeftIconButtonTouchTap={this.handleToggle.bind(this)}>

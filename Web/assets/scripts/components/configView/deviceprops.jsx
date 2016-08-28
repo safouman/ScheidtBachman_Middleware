@@ -9,8 +9,9 @@ import * as actions from '../../actions';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import {reduxForm} from 'redux-form';
+
 import Checkbox from 'material-ui/Checkbox';
+import loadash from 'lodash'
 const styles = {
     block: {
         maxWidth: 250,
@@ -39,7 +40,7 @@ class deviceProperties extends Component {
             Output: false,
             label: 'Confirm',
             process: '',
-            Baudrate: '',
+            Baudrate: 9600,
             errorText: '',
             disabled: false,
             ack: '',
@@ -50,17 +51,19 @@ class deviceProperties extends Component {
     };
 
     componentWillMount() {
-        var i = this.props.confirmed_devices.map(function (d) {
-            return d['Name'];
-        }).indexOf(this.props.row.Name)
 
-        if (this.props.confirmed_devices) {
-            if ((this.props.confirmed_devices.length > 0) && (this.props.confirmed_devices[i].confirmed == true)) {
-                this.setState({label: 'Unconfirm'})
-                console.log(this.state.label, 'label')
-            }
-            if ((this.props.confirmed_devices.length > 0) && (this.props.confirmed_devices[i].Output == true)) {
-                this.setState({Output: true})
+
+        if (this.props.confirmed_devices.length) {
+            var i = _.findKey(this.props.confirmed_devices, {'ID': this.props.index})
+            console.log(i, 'xxxxxxxxx')
+            if (typeof i != 'undefined') {
+                if ((this.props.confirmed_devices.length > 0) && (this.props.confirmed_devices[i].confirmed == true)) {
+                    this.setState({label: 'Unconfirm',disabled:true})
+                    console.log(this.state.label, 'label')
+                }
+                if ((this.props.confirmed_devices.length > 0) && (this.props.confirmed_devices[i].Output == true)) {
+                    this.setState({Output: true})
+                }
             }
         }
     }
@@ -113,6 +116,7 @@ class deviceProperties extends Component {
             if ((this.state.label == 'Confirm') && (this.state.errorText == '')) {
 
                 const confirmed_device = {
+                    ID: this.props.index,
                     ProductID: this.props.row.ProductID,
                     VendorID: this.props.row.VendorID,
                     Name: this.props.row.Name,
@@ -121,7 +125,7 @@ class deviceProperties extends Component {
                     Baudrate: this.state.Baudrate,
                     Process: this.state.process,
                     Subsystem: this.props.row.Subsystem,
-                    Send: '',
+                    Send: false,
                     confirmed: true,
 
 

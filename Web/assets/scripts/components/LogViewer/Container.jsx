@@ -20,7 +20,7 @@ const styles = {
     paper: {
 
         height: '100%',
-        width: '75%',
+        width: '90%',
         margin: 20,
         textAlign: 'center',
         display: 'inline-block',

@@ -12,7 +12,13 @@ import {
     UPLOAD_SUCCESS,
     RESET_UPLOAD,
     MIDDLEWARE,
-    MIDDLEWARE_ERROR
+    MIDDLEWARE_ERROR,
+    CHECK_SEND,
+    UNCHECK_SEND,
+    CHECK_SENDALL,
+    UNCHECK_SENDALL,
+    SETMIDDLEWARE_ALL,
+    SETMIDDLEWARE
 } from '../actions/types'
 const confirmed_devices = [];
 export default function (state = {confirmed_devices: [], upload: false}, action) {
@@ -69,6 +75,18 @@ export default function (state = {confirmed_devices: [], upload: false}, action)
             return {...state, middleware_names: action.payload}
         case MIDDLEWARE_ERROR:
             return {...state, middleware_names_error: action.payload};
+        case CHECK_SENDALL:
+            return {...state, confirmed_devices: action.payload, checksend: true}
+        case UNCHECK_SENDALL:
+            return {...state, confirmed_devices: action.payload, checksend: false}
+        case CHECK_SEND:
+            return {...state, confirmed_devices: action.payload}
+        case UNCHECK_SEND:
+            return {...state, confirmed_devices: action.payload}
+        case SETMIDDLEWARE_ALL:
+            return {...state, confirme_devices: action.payload}
+        case SETMIDDLEWARE:
+            return {...state, confirmed_devices: action.payload}
     }
 
     return state;

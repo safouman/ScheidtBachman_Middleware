@@ -22,15 +22,21 @@ import {
     DOWNLAOD_LOG,
     UPLOAD_SUCCESS,
     RESET_UPLOAD,
-MIDDLEWARE,MIDDLEWARE_ERROR
-
+    MIDDLEWARE,
+    MIDDLEWARE_ERROR,
+    CHECK_SEND,
+    UNCHECK_SEND,
+    CHECK_SENDALL,
+    UNCHECK_SENDALL,
+    SETMIDDLEWARE_ALL,
+    SETMIDDLEWARE
 } from './types'
 
 import request  from 'superagent'
 import callback from 'superagent'
 const ROOT_URL = 'http://localhost:5000';
 
-import  FileSaver from 'file-saver'
+
 export function signinUser({username, password}) {
     return function (dispatch) {
 
@@ -50,7 +56,7 @@ export function signinUser({username, password}) {
                 //-save jwt token
                 localStorage.setItem('token', response.data.token)
                 //-redirect user
-                browserHistory.push('/config')
+                browserHistory.push('/')
 
             })
             .catch(()=> {
@@ -231,9 +237,13 @@ export function configError(error) {
 };
 
 export function saveConfig(config) {
+
     return function (dispatch) {
+        console.log(config)
+        var settings={settings:config}
+
         var token = localStorage.getItem('token')
-        axios.post(`${ROOT_URL}/api/save_config`, {config: config}, {
+        axios.post(`${ROOT_URL}/api/save_config`, {config: settings}, {
                 auth: {
                     username: token,
                 }
@@ -300,30 +310,29 @@ export function uploadFile(files) {
     console.log(files)
     return function (dispatch) {
 
-         var req = request.post('http://localhost:5000/upload')
+        var req = request.post('http://localhost:5000/upload')
         files.forEach((file)=> {
-            req.attach('file', file,file.name);
+            req.attach('file', file, file.name);
         });
         req.then(
-              dispatch({
-                    type: UPLOAD_SUCCESS,
-                    payload:'upload_success'
+            dispatch({
+                type: UPLOAD_SUCCESS,
+                payload: 'upload_success'
 
-                })
-
+            })
         )
 
 
     };
 }
 export function resetUploadStatus() {
-    return{
-        type:RESET_UPLOAD,
+    return {
+        type: RESET_UPLOAD,
 
     }
 
 }
-export function middlewareFetchError() {
+export function middlewareFetchError(error) {
     return {
         type: MIDDLEWARE_ERROR,
         payload: error
@@ -341,4 +350,84 @@ export function middlwareNames() {
 
                 })).catch(response =>dispatch(middlewareFetchError("ERROR Fetching existing middlwares")))
     }
+}
+
+export function CheckSendALL(confirmed_devices) {
+
+    for (let item in confirmed_devices) {
+        confirmed_devices[item].Send = true
+
+    }
+
+    return {
+        type: CHECK_SENDALL,
+        payload: confirmed_devices
+
+
+    }
+
+
+}
+
+export function UnCheckSendALL(confirmed_devices) {
+
+    for (let item in confirmed_devices) {
+        confirmed_devices[item].Send = false
+
+    }
+
+    return {
+        type: UNCHECK_SENDALL,
+        payload: confirmed_devices
+
+
+    }
+
+
+}
+export function CheckSend(confirmed_devices, index) {
+    confirmed_devices[index].Send = true
+    console.log(confirmed_devices)
+    return {
+        type: CHECK_SEND,
+        payload: confirmed_devices
+
+
+    }
+}
+
+export function UnCheckSend(confirmed_devices, index) {
+    confirmed_devices[index].Send = false
+    console.log(confirmed_devices)
+
+    return {
+        type: UNCHECK_SEND,
+        payload: confirmed_devices
+
+
+    }
+}
+export function setMiddleware_All(confirmed_devices, middlware) {
+
+    for (let item in confirmed_devices) {
+        confirmed_devices[item].Process = middlware
+    }
+    return {
+        type: SETMIDDLEWARE_ALL,
+        payload: confirmed_devices
+    }
+
+}
+
+export function setMiddleware(confirmed_devices, middlware, index) {
+
+
+    confirmed_devices[index].Process = middlware
+
+
+    return {
+        type: SETMIDDLEWARE,
+        payload: confirmed_devices
+    }
+
 }

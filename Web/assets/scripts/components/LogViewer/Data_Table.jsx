@@ -42,14 +42,14 @@ const styles = {
     paper: {
 
         height: '100%',
-        width: '75%',
+        width: '100%',
         margin: 20,
         textAlign: 'center',
         display: 'inline-block',
     },
     table: {
         margin: 'auto',
-        width: '90%',
+        width: '95%',
         textAlign: 'center',
         paddingTop: 15,
 
@@ -57,7 +57,6 @@ const styles = {
     info: {
 
         backgroundColor: '#5cb85c',
-
         display: 'inline',
         padding: '.2em .6em .3em',
         fontSize: '75%',
@@ -128,12 +127,6 @@ var customColumnMetadata = [
         "order": 4,
         "locked": false,
         "visible": true
-    }, {
-        "columnName": "Function Name",
-        "order": 5,
-        "locked": false,
-        "visible": true,
-        "displayName": "Function"
     },
 ];
 
@@ -160,7 +153,7 @@ class LogTable extends Component {
                 <GriddleBootstrap
                     hover={true}
                     striped={true}
-                    bordered={false}
+                    bordered={true}
                     condensed={false}
                     showFilter={true}
                     showSettings={true}

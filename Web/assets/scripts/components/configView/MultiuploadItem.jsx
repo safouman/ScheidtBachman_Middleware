@@ -9,20 +9,24 @@ import SelectField from 'material-ui/SelectField';
 import Menu from 'material-ui/Menu';
 import Checkbox from 'material-ui/Checkbox';
 import MenuItem from 'material-ui/MenuItem';
-
+import lodash from'lodash'
 const styles = {
     container: {
 
         textAlign: 'center',
 
     }, raisedButton: {
-        marginTop: 20,
+
         marginLeft: 35,
-        marginRight: 10,
+        marginRight: 35,
+        marginBottom:50,
+        marginTop:20,
+
 
 
     }, checkbox: {
-        marginTop: 20,
+        marginTop: 35 ,
+
         width: 12,
 
     },
@@ -33,7 +37,7 @@ class MultiuploadItem extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {checked: false,};
     }
 
     onOpenClick() {
@@ -41,7 +45,10 @@ class MultiuploadItem extends Component {
     }
 
     handleChange(event, index, value) {
-        this.setState({value})
+        this.setState({value, checked: false})
+        var i = _.findKey(this.props.confirmed_devices, {'Name': this.props.row.Name})
+        this.props.setMiddleware(this.props.confirmed_devices, this.props.middleware_names[value], i)
+        console.log(this.props.confirmed_devices[i])
     };
 
     renderfileList() {
@@ -74,12 +81,14 @@ class MultiuploadItem extends Component {
         if (this.props.middleware_names) {
             if (this.props.middleware_names.length > 0) {
                 return (   <SelectField
-
+                    style={{marginBottom:30}}
                     value={this.state.value}
                     onChange={this.handleChange.bind(this)}
                     hintStyle={{backgroundColor: '#ffffff', zIndex: 1, pointerEvents: 'none', width: '85%'}}
                     hintText="Existing Middlewares"
-                    autoWidth={true}>
+                    autoWidth={true}
+                    errorText={this.handle_Selected_Middleware()}
+                    errorStyle={{color: '#26C6DA',fontSize:15,fontWeight:'bold'}}   >
                     {this.renderfileList()}
                 </SelectField>)
             }
@@ -87,29 +96,59 @@ class MultiuploadItem extends Component {
     }
 
     onDrop(files) {
+        var i = _.findKey(this.props.confirmed_devices, {'Name': this.props.row.Name})
         console.log('Received files: ', files);
         this.props.uploadFile(files)
+        this.props.setMiddleware(this.props.confirmed_devices, files[0].name, i)
         this.props.middlwareNames()
     }
 
+    handleCheck(e, isInputChecked) {
+        var i = _.findKey(this.props.confirmed_devices, {'Name': this.props.row.Name})
+        if (isInputChecked) {
+            this.props.CheckSend(this.props.confirmed_devices, i)
+            this.setState({checked: true})
+        }
+        else {
+            this.props.UnCheckSend(this.props.confirmed_devices, i)
+            this.setState({checked: false})
+        }
+    }
+
+    handle_Selected_Middleware() {
+        var i = _.findKey(this.props.confirmed_devices, {'Name': this.props.row.Name})
+        if (this.props.confirmed_devices[i].Process != "") {
+
+            return ('Currently Selected: ' + this.props.confirmed_devices[i].Process)
+        }
+        else {
+            return ('Currently Selected:None')
+        }
+    }
+
     render() {
-        console.log(this.props.confirmed_devices, 'confirmed devices')
+
+        var i = _.findKey(this.props.confirmed_devices, {'Name': this.props.row.Name})
+
+
         return ( <div style={styles.container}>
 
             <Dropzone style={{display: 'none'}} ref="dropzone" onDrop={this.onDrop.bind(this)}/>
-            <div style={{display: '-webkit-inline-box'}}>
+            <div style={{display: 'inline-flex', margin: 20}}>
 
-                <Checkbox style={
-                    styles.checkbox
-
-                }
+                <Checkbox style={styles.checkbox}
                           label={this.props.row.Name}
+                          onCheck={this.handleCheck.bind(this)}
+                          checked={ this.props.confirmed_devices[i].Send}
+
                 />
                 <RaisedButton id="upload"
                               icon={<FileFileUpload/> }
                               onClick={this.onOpenClick.bind(this)}
                               primary={true}
-                              style={styles.raisedButton}/>
+                              style={styles.raisedButton}
+
+                />
 
                 {this.showMiddlewares()}
             </div>

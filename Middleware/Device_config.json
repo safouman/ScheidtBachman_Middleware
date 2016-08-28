@@ -1,27 +1,17 @@
 {
-  "settings": [
-
-      {
-      "Baudrate": "",
-      "IO": "input",
-      "Name": "IDTECH",
-      "Path": "/dev/ttyUSB0",
-      "ProductID": "2303",
-      "VendorID": "067b",
-      "Send": "True",
-      "Subsystem": "tty"
-    },
-     {
-      "Baudrate": "",
-      "IO": "input",
-      "Name": "Elatek",
-      "Path": "/dev/hidraw0",
-      "ProductID": "2303",
-      "VendorID": "067b",
-      "Send": "True",
-      "Subsystem": "hid"
-    }
-
-
-  ]
+    "settings": [
+        {
+            "Baudrate": 9600, 
+            "ID": 0, 
+            "Name": "OEM_RFID_Device__Keyboard_", 
+            "Output": true, 
+            "Path": "/dev/hidraw1", 
+            "Process": "java_sample.jar", 
+            "ProductID": "0410", 
+            "Send": true,
+            "Subsystem": "hidraw", 
+            "VendorID": "09d8", 
+            "confirmed": true
+        }
+    ]
 }
