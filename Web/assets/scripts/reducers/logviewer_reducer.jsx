@@ -9,7 +9,7 @@ export default function (state={}, action) {
             console.log("inside log reducer",action.payload)
             return {...state,logdata:action.payload};
         case LOG_FETCH_ERROR:
-
+            console.log(action.payload)
              return {...state, logfetch_error: action.payload};
         case LOG_NAMES:
             return{...state,lognames:action.payload};

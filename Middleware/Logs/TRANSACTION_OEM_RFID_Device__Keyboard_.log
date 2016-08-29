@@ -1,3 +1,0 @@
-{"TimeStamp": "2016-08-27T23:27:40.982611", "Source": ["OEM_RFID_Device__Keyboard_"], "Function Name": ["run"], "INPUT": "11284907982048989920", "OUTPUT": null, "Message": ["TRANSACTION"], "LevelName": ["INFO"]}
-{"TimeStamp": "2016-08-27T23:29:03.976244", "Source": ["OEM_RFID_Device__Keyboard_"], "Function Name": ["run"], "INPUT": "11284907982048989920", "OUTPUT": null, "Message": ["TRANSACTION"], "LevelName": ["INFO"]}
-{"TimeStamp": "2016-08-27T23:30:30.437296", "Source": ["OEM_RFID_Device__Keyboard_"], "Function Name": ["run"], "INPUT": "11284907982048989920", "OUTPUT": "112849079820489899207777\n", "Message": ["TRANSACTION"], "LevelName": ["INFO"]}

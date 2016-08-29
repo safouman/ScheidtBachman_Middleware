@@ -25,7 +25,7 @@ if  __name__ == "__main__":
 
 
 
-
+        logger.info('creating params..')
 
         params = [settings(**k) for k in data["settings"]]
 

@@ -6,28 +6,41 @@ import  {connect} from 'react-redux';
 import * as actions from '../actions'
 
 const styles = {
-  container: {
+    container: {
 
-    textAlign: 'center',
-    paddingTop: 200,
-  },raisedButton:{
-         margin: 12,
-    }}
+        textAlign: 'center',
+        paddingTop: 200,
+    }, raisedButton: {
+        margin: 12,
+    }
+}
 
 export default class Welcome extends React.Component {
-    ifauthenticated(){
-         if (this.props.authenticated) {
-             return       <Link to="signup"><RaisedButton label="Add User" primary={true} style={styles.raisedButton} /></Link>
-         }
+
+    componentWillMount() {
+        this.props.getMiddlewareStatus()
+        this.props.getConfig()
+    }
+
+    ifauthenticated() {
+        if (this.props.authenticated) {
+            return (<div><Link to="signup"><RaisedButton label="Add User" primary={true}
+                                                         style={styles.raisedButton}/></Link>
+                <Link to="Status"><RaisedButton label="Check Status" primary={true} style={styles.raisedButton}/></Link>
+            </div>)
+        }
 
     }
+
     render() {
         return (<div style={styles.container}>
             <h1><strong>Welcome</strong></h1>
+
             <Link to="configdevices"><RaisedButton label="Configure Devices" primary={true}
                                                    style={styles.raisedButton}/></Link>
             <Link to="logviewer"><RaisedButton label="Check Log" primary={true} style={styles.raisedButton}/></Link>
             {this.ifauthenticated()}
+
         </div>);
     }
 }

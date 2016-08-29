@@ -21,7 +21,7 @@ import {
     LOG_NAMES,
     DOWNLAOD_LOG,
     UPLOAD_SUCCESS,
-    RESET_UPLOAD,
+
     MIDDLEWARE,
     MIDDLEWARE_ERROR,
     CHECK_SEND,
@@ -29,7 +29,12 @@ import {
     CHECK_SENDALL,
     UNCHECK_SENDALL,
     SETMIDDLEWARE_ALL,
-    SETMIDDLEWARE
+    SETMIDDLEWARE,
+    GET_CONFIG,
+    GET_STATUS,
+    START_MIDDLEWARE,
+    KILL_MIDDLEWARE,
+    RESET_STATUS
 } from './types'
 
 import request  from 'superagent'
@@ -240,7 +245,7 @@ export function saveConfig(config) {
 
     return function (dispatch) {
         console.log(config)
-        var settings={settings:config}
+        var settings = {settings: config}
 
         var token = localStorage.getItem('token')
         axios.post(`${ROOT_URL}/api/save_config`, {config: settings}, {
@@ -325,13 +330,14 @@ export function uploadFile(files) {
 
     };
 }
-export function resetUploadStatus() {
+export function resetStatus() {
     return {
-        type: RESET_UPLOAD,
+        type: RESET_STATUS,
 
     }
 
 }
+
 export function middlewareFetchError(error) {
     return {
         type: MIDDLEWARE_ERROR,
@@ -430,4 +436,96 @@ export function setMiddleware(confirmed_devices, middlware, index) {
         payload: confirmed_devices
     }
 
+}
+export function getConfig() {
+
+    return function (dispatch) {
+        var token = localStorage.getItem('token')
+
+        axios.get(`${ROOT_URL}/api/get_config`, {
+            auth: {
+                username: token,
+            }
+        })
+            .then(response=> {
+                console.log("inside action", response.data)
+                dispatch({
+                    type: GET_CONFIG,
+                    payload: response.data
+                    //.replace(/\"([^(\")"]+)\":/g,"$1:")
+                })
+            })
+            .catch(response=> dispatch(configError(response.error)));
+
+    }
+}
+
+export function getMiddlewareStatus() {
+
+    return function (dispatch) {
+        var token = localStorage.getItem('token')
+
+        axios.get(`${ROOT_URL}/api/middleware_status`, {
+            auth: {
+                username: token,
+            }
+        })
+            .then(response=> {
+                console.log("inside action", response.data)
+                dispatch({
+                    type: GET_STATUS,
+                    payload: response.data
+                    //.replace(/\"([^(\")"]+)\":/g,"$1:")
+                })
+            })
+            .catch(response=> dispatch(configError(response.error)));
+
+    }
+}
+
+export function startMiddleware() {
+
+    return function (dispatch) {
+        var token = localStorage.getItem('token')
+
+        axios.get(`${ROOT_URL}/api/start_middleware`, {
+            auth: {
+                username: token,
+            }
+        })
+            .then(response=> {
+                console.log("inside action", response.data)
+                dispatch({
+                    type: START_MIDDLEWARE,
+                    payload: response.data
+                    //.replace(/\"([^(\")"]+)\":/g,"$1:")
+                })
+            })
+            .catch(response=> dispatch(configError(response.error)));
+
+    }
+}
+
+
+export function killMiddleware() {
+
+    return function (dispatch) {
+        var token = localStorage.getItem('token')
+
+        axios.get(`${ROOT_URL}/api/kill_middleware`, {
+            auth: {
+                username: token,
+            }
+        })
+            .then(response=> {
+                console.log("inside action", response.data)
+                dispatch({
+                    type: START_MIDDLEWARE,
+                    payload: response.data
+                    //.replace(/\"([^(\")"]+)\":/g,"$1:")
+                })
+            })
+            .catch(response=> dispatch(configError(response.error)));
+
+    }
 }

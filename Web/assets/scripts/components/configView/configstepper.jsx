@@ -167,7 +167,7 @@ componentWillMount(){
     }
 
     handleRequestClose() {
-        this.props.resetUploadStatus()
+        this.props.resetStatus()
     };
 
     render() {
@@ -244,7 +244,7 @@ componentWillMount(){
                     </Step>
                 </Stepper>
                 <Snackbar
-                    open={this.props.upload}
+                    open={this.props.status}
                     message="Upload Completed"
                     autoHideDuration={3000}
                     onRequestClose={this.handleRequestClose.bind(this)}
@@ -260,7 +260,7 @@ function mapStateToProps(state) {
         selected_devices: state.config.selected_devices,
         config_state: state.config.config,
         errorMessage: state.config.config_error,
-        upload: state.config.upload
+        status: state.config.status
 
 
     }

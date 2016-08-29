@@ -100,6 +100,7 @@ class LogViewer extends Component {
         //    render menu with list
         let menuItems = [];
         //
+
         for (let i in this.props.lognames) {
             let itemIndex = i;
             let item = (
@@ -115,10 +116,11 @@ class LogViewer extends Component {
         }
 
 
-        return menuItems;
+        return menuItems;}
+
 
         //     //add actons when selectede
-    }
+
 
     handleChange(event, index, value) {
         this.setState({value})

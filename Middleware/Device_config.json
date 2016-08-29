@@ -8,7 +8,7 @@
             "Path": "/dev/hidraw1", 
             "Process": "java_sample.jar", 
             "ProductID": "0410", 
-            "Send": true,
+            "Send": false, 
             "Subsystem": "hidraw", 
             "VendorID": "09d8", 
             "confirmed": true

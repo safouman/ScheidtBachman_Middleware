@@ -10,7 +10,7 @@ import {
     CLEAR,
     SAVE_CONFIG,
     UPLOAD_SUCCESS,
-    RESET_UPLOAD,
+    RESET_STATUS,
     MIDDLEWARE,
     MIDDLEWARE_ERROR,
     CHECK_SEND,
@@ -18,10 +18,14 @@ import {
     CHECK_SENDALL,
     UNCHECK_SENDALL,
     SETMIDDLEWARE_ALL,
-    SETMIDDLEWARE
+    SETMIDDLEWARE,
+    GET_CONFIG,
+    GET_STATUS,
+    START_MIDDLEWARE,
+    KILL_MIDDLEWARE
 } from '../actions/types'
 const confirmed_devices = [];
-export default function (state = {confirmed_devices: [], upload: false}, action) {
+export default function (state = {confirmed_devices: [], status: false}, action) {
     switch (action.type) {
         case DEVICES_SELECTED:
 
@@ -68,9 +72,9 @@ export default function (state = {confirmed_devices: [], upload: false}, action)
             console.log("config", action.payload)
             return {...state, config: action.payload}
         case UPLOAD_SUCCESS:
-            return {...state, upload: true}
-        case RESET_UPLOAD:
-            return {...state, upload: false}
+            return {...state, status: true}
+        case RESET_STATUS:
+            return {...state, status: false}
         case MIDDLEWARE:
             return {...state, middleware_names: action.payload}
         case MIDDLEWARE_ERROR:
@@ -87,6 +91,14 @@ export default function (state = {confirmed_devices: [], upload: false}, action)
             return {...state, confirme_devices: action.payload}
         case SETMIDDLEWARE:
             return {...state, confirmed_devices: action.payload}
+        case GET_CONFIG:
+            return {...state, configfile: action.payload}
+        case GET_STATUS:
+            return {...state, middleware_status: action.payload}
+        case START_MIDDLEWARE:
+            return {...state, status: true, message: action.payload}
+        case KILL_MIDDLEWARE:
+            return {...state, status: true, message: action.payload}
     }
 
     return state;

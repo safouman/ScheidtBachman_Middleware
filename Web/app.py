@@ -1,11 +1,12 @@
 LOG_DIR = "../Middleware/Logs/"
 UPLOAD_FOLDER = '../Uploads'
+CONFIG_FILE='../Middleware/'
 from werkzeug.serving import run_simple
 from flask.ext.cors import CORS, cross_origin
 from flask_webpack import Webpack
 from flask import send_from_directory
 from flask import Flask, render_template, jsonify, abort, request, g, url_for
-
+import json
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_httpauth import HTTPBasicAuth
@@ -78,8 +79,7 @@ class User(db.Model):
         s = Serializer(app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
-        except SignatureExpired:
-            return None  # valid token, but expired
+
         except BadSignature:
             return None  # invalid token
         user = User.query.get(data['id'])
@@ -244,6 +244,27 @@ def upload():
 
             return "success"
 
+@app.route('/api/get_config', methods=['GET'])
+def getconfig():
+    with open(CONFIG_FILE+'Device_config.json') as data_file:
+        configfile = json.load(data_file)
+    return jsonify(configfile)
+
+@app.route('/api/middleware_status', methods=['GET'])
+def Middleware_status():
+   return jsonify(api.api.Middleware_status())
+
+
+
+@app.route('/api/start_middleware', methods=['GET'])
+def start_middleware():
+
+   return jsonify(api.api.start_middleware())
+
+@app.route('/api/kill_middleware', methods=['GET'])
+def kill_middleware():
+
+   return jsonify(api.api.kill_middleware())
 # Please use a pro
 # per wsgi server such as gunicorn, I am only using this to keep
 # the demo app as simple as possible.

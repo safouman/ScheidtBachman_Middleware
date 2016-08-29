@@ -4,9 +4,11 @@ from Logging_Config.Logger import Logger
 import os
 
 import subprocess
-logger=Logger('Middleware_handler').get()
+
 # os.chdir(UPLOAD_FOLDER)
 def Middleware_handler(filename="java_sample.jar",data='99999'):
+    logger = Logger('Middleware_handler').get()
+
     logger = Logger(filename).get()
     #check if file exist
     try:
